@@ -28,15 +28,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import jp.co.ssd.bi.constant.UploadCommonConst;
-import jp.co.ssd.bi.mapper.UploadMapper;
+import jp.co.ssd.bi.dao.DataUploadDao;
 import jp.co.ssd.bi.model.MyException;
+import jp.co.ssd.bi.util.DBUtil;
 
 @Service
 public class FileUploadService {
 	private static Logger logger = LoggerFactory.getLogger(FileUploadService.class);
 	
 	@Autowired
-	UploadMapper uploadMapper;
+	DBUtil dbutil;
+	@Autowired
+	DataUploadDao dataUploadDao;
 
 	/**
      *　XMLファイル読み込み
@@ -344,6 +347,7 @@ public class FileUploadService {
 		}
 		return strCell;
 	}
+
 	
 	/**
 	 * データ登録
@@ -351,95 +355,9 @@ public class FileUploadService {
 	 * @param filetype ファイルタイプ
 	 * @param excelData エクセル情報
 	 * @return String cell情報
+	 * @throws SQLException 
 	 */	
-	public void dataUpload(String filetype,Map<String,List<String>> excelData) {
-		
-		for(Map.Entry<String, List<String>> tmpData : excelData.entrySet()) {
-				
-				String tmpKey = tmpData.getKey();
-				List<String> tmpValue = tmpData.getValue();
-				//sql文生成
-				Map <String,String> sqlMap = getsql(tmpKey,tmpValue);
-				
-				//テーブルを更新
-				uploadMapper.deleteInfo(sqlMap.get(UploadCommonConst.DELETE));
-				uploadMapper.insterInfo(sqlMap.get(UploadCommonConst.INSERT));		
-			}
+	public void dataUpload(String filetype,Map<String,List<String>> excelData){
+		dataUploadDao.dataUpload(filetype, excelData);
 	}
-	
-	/**
-	 * sql文生成
-	 *  
-	 * @param tableName テーブルネーム
-	 * @param upLoadData アップデータ情報
-	 * @return sqlMap sql情報
-	 */	
-	private Map<String,String> getsql(String tableName,List<String> upLoadData){
-
-		Map <String,String> sqlMap = new LinkedHashMap<String,String>(); 
-		String insCloumSql = "";
-		String insValueSql = "";
-		String delSql = "";
-		
-		for(int i = 0;i <= upLoadData.size()-1 ; i++) {
-			String dataTmp[] = upLoadData.get(i).split(",");			
-			if(UploadCommonConst.案件管理一覧.equals(tableName)) {				
-				if (i < Integer.parseInt(dataTmp[2])) {
-					insCloumSql = insCloumSql + dataTmp[0] + ",";
-				}
-				if(UploadCommonConst.課名.equals(dataTmp[0]) || UploadCommonConst.ユニット名.equals(dataTmp[0]) || UploadCommonConst.案件名.equals(dataTmp[0])) {
-					delSql = delSql + dataTmp[0] + "=" + "'" + dataTmp[1] + "'" + " and ";
-				}
-				insValueSql = insValueSql + getInsVal(dataTmp[1]) + ",";			
-				if((i+1)%Integer.parseInt(dataTmp[2]) == 0) {
-					delSql = delSql.substring(0, delSql.length() - 5) + ") or (";
-					insValueSql = insValueSql.substring(0, insValueSql.length() - 1) + "),(";
-
-				}
-	
-			}else {
-				insCloumSql = insCloumSql + dataTmp[0] + ",";
-				if(UploadCommonConst.課名.equals(dataTmp[0]) || UploadCommonConst.ユニット名.equals(dataTmp[0]) || UploadCommonConst.案件名.equals(dataTmp[0]) || UploadCommonConst.会社区分.equals(dataTmp[0])) {
-					delSql = delSql + dataTmp[0] + "=" + "'" + dataTmp[1] + "'" + " and  ";
-				}
-					insValueSql = insValueSql + getInsVal(dataTmp[1]) + "  ,";
-										
-			}
-		}
-		sqlMap.put(UploadCommonConst.DELETE, tableName + " where " + "(" + delSql.substring(0, delSql.length() - 6) + ")");
-		sqlMap.put(UploadCommonConst.INSERT, tableName + "(" + insCloumSql.substring(0, insCloumSql.length() - 1) + ")" + " values " + "(" + insValueSql.substring(0, insValueSql.length() - 3) + ")");
-				
-		return sqlMap;	
-	}	
-	
-	
-	/**
-	 * insertSql文作成
-	 *  
-	 * @param insValueSql 編集元文字列
-	 * @return String 編集後文字列
-	 */	
-	private String getInsVal(String insValueSql) {
-		if(UploadCommonConst.空セル.endsWith(insValueSql)) {
-			return UploadCommonConst.NULL;
-		}else {
-			if(isNumber(insValueSql)) {
-				return insValueSql;
-			}else {
-				return "'" + insValueSql + "'";
-			}
-		}
-	}
-	
-	/**
-	 * 数字型判断
-	 *  
-	 * @param str 判断文字列
-	 * @return boolean 数字：true 数字以外:false
-	 */	
-	private static boolean isNumber(String str){
-        String reg = "^[0-9]+(.[0-9]+)?$";
-        return str.matches(reg);
-
-    }
 }

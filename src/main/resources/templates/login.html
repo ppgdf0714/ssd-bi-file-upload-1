@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>ファイルアップロード</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link th:href="@{/bootstrap/css/bootstrap.css}" href="../static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+    <link th:href="@{/bootstrap/css/bootstrap-theme.css}" href="../static/bootstrap/css/bootstrap-theme.css"
+          rel="stylesheet"/>
+    <link th:href="@{/sweetalert/css/sweetalert.css}" href="../static/sweetalert/css/sweetalert.css"
+          rel="stylesheet"/>
+    <script th:src="@{/script/jquery-3.1.1.min.js}" src="../static/bootstrap/scripts/jquery-3.1.1.min.js"></script>
+    <script th:src="@{/bootstrap/js/bootstrap.js}" src="../static/bootstrap/js/bootstrap.js"></script>
+    <script th:src="@{/sweetalert/js/sweetalert-dev.js}" src="../static/sweetalert/js/sweetalert-dev.js"></script>
+<style type="text/css">
+    body {
+  padding-top: 50px;
+}
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+	        <div id="navbar" class="collapse navbar-collapse">
+	          <ul class="nav navbar-nav">
+		       </ul>
+	        </div>
+      </div>
+    </nav>
+     <div class="container">
+
+      <div class="starter-template">
+       		<!--<p th:if="${param.logout}" class="bg-warning">已成功注销</p> 1 -->
+            <p th:if="${param.error}" class="bg-danger">ユーザID、パスワードの入力に誤りがあるか登録されていません。</p> <!-- 2 -->
+            <!--<h2>ログイン</h2>-->
+            <form name="form" th:action="@{/login}" action="/login" method="POST"> <!-- 3 -->
+                <div class="form-group">
+                    <label for="username">ユーザID</label><input type="text" class="form-control" name="username" value="" placeholder="ユーザID" />
+                </div>
+                <div class="form-group">
+                    <label for="password">パースワード</label><input type="password" class="form-control" name="password" placeholder="パースワード" />
+                </div>
+                <input type="submit" id="login" value="Login" class="btn btn-primary" />
+            </form>
+      </div>
+    </div>  
+</body>
+</html>

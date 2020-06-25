@@ -6,17 +6,18 @@ public class MyException extends RuntimeException {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-    private String msg;
+    private String Message;
 
-    public MyException(String msg) {
-        this.msg = msg;
+    public MyException(String Message) {
+        this.Message = Message;
     }
 
-    public String getMsg() {
-        return msg;
-    }
+	public String getMessage() {
+		return Message;
+	}
 
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
+	public void setMessgae(String message) {
+		Message = message;
+	}
+
 }

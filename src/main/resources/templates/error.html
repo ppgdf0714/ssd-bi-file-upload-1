@@ -11,9 +11,20 @@
     <script th:src="@{/bootstrap/js/bootstrap.js}" src="../static/bootstrap/js/bootstrap.js"></script>
 </head>
 <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+	        <div id="navbar" class="collapse navbar-collapse">
+	          <ul class="nav navbar-nav">
+		      </ul>
+	        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
 	<div class="container">
 		<div class="row">
         	<div class="col-md-12">
+        		<div class="text-left">
+            		<li><a th:href="@{/login}">ログインへ</a></li>
+            	</div>
         	    <div class="text-right">
             			<h5><small>Ver1.0</small></h5>
             	</div>	
@@ -23,7 +34,7 @@
                 	</div>
                 	<div class="panel-body">
                 		<label class="col-xs-5 control-label" th:text="${msg}"></label><br> 
-                		<form action="/index" method="POST" enctype="multipart/form-data"><br>
+                		<form th:action="@{/index}" action="/index" method="POST" enctype="multipart/form-data"><br>
 					        <input class="btn btn-primary" type="submit" value="トップへ">
 					    </form><br>
 				    </div>	

@@ -13,7 +13,7 @@ class handleMyException {
 	Object handleMyException(MyException e) {
 	    ModelAndView mv = new ModelAndView();
 	    mv.setViewName("error.html");
-	    mv.addObject("msg", e.getMsg());
+	    mv.addObject("msg", e.getMessage());
 	    return mv;
 	}
 
