@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>ファイルアップロード</title>
+	<title>ファイルアップロード</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link th:href="@{/bootstrap/css/bootstrap.css}" href="../static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
@@ -12,15 +12,6 @@
     <script th:src="@{/script/jquery-3.1.1.min.js}" src="../static/bootstrap/scripts/jquery-3.1.1.min.js"></script>
     <script th:src="@{/bootstrap/js/bootstrap.js}" src="../static/bootstrap/js/bootstrap.js"></script>
     <script th:src="@{/sweetalert/js/sweetalert-dev.js}" src="../static/sweetalert/js/sweetalert-dev.js"></script>
-<style type="text/css">
-    body {
-  padding-top: 50px;
-}
-.starter-template {
-  padding: 40px 15px;
-  text-align: left;
-}
-</style>
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -45,12 +36,11 @@
 				<div class="input-group form-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 					<input type="password" class="form-control" name="password" placeholder="パースワード" required="required" maxlength="16">
-					<span class="glyphicon glyphicon-eye-close form-control-feedback"></span> <!--小图标元素-->
+					<span class="glyphicon glyphicon-eye-close form-control-feedback" style="display:inline-block;"></span>
 				</div>
 				<button type="submit" id="login" value="Login" class="btn btn-primary btn-block">Login</button><br>
 				<!--<small class="text-muted">没有账户？<a href="regist.html">点此注册</a><div style="display: inline-block;width: 20%;"></div>
-				<a href="temporary.html">临时账户</a></small><a href="temporary.html">找回密码</a>
-				</small>-->
+				<a href="temporary.html">临时账户</a></small><a href="temporary.html">找回密码</a>-->
 			</form>
 		</div>
     </div>  
