@@ -144,7 +144,7 @@ public class FileUploadService {
 			String type = "";
 			List<String> UploadData = new ArrayList<String>();
 			Map<String,String> tmpUploadData = new LinkedHashMap<String,String>();
-			if("xlsx".equals(fileSuffix)) {
+			if("xlsx".equals(fileSuffix) || "xlsm".equals(fileSuffix)) {
 				logger.info("excel2007");
 				XSSFWorkbook hssfWorkbook = new XSSFWorkbook(file.getInputStream());
 				for (int i = 0; i < tmpValue.size(); i++) {
