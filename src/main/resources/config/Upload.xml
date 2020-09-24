@@ -6445,6 +6445,11 @@
 		   <value>33,20</value>
 		   <type>数字</type>
 		 </column>
+		 <column sheet="0">
+		   <name>経験有無</name>
+		   <value>31,6</value>
+		   <type>文字列</type>
+		 </column>
 	</table>
 	<table tablename="案件管理一覧">
 		<column sheet="2">
